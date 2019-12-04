@@ -1,24 +1,24 @@
 import networkx as nx
-import scipy.sparse
+import scipy.sparse as sparse
+import time
+start_time = time.time()
 
-first_line = ""
-with open("graphs_processed/Oregon-1.txt") as f:
-    first_line = f.readline().split()
 
-k = first_line[4]
-vertices = first_line[2]
 G=nx.read_edgelist("graphs_processed/Oregon-1.txt")
 
 def find_laplacian(nodelist):
 
     if nodelist is None:
         nodelist = list(G)
-    A = nx.to_scipy_sparse_matrix(G, nodelist=nodelist, weight=None,
-                                  format='csr')
+    A = nx.to_scipy_sparse_matrix(G, nodelist=nodelist, weight=None)
     n, m = A.shape
     diags = A.sum(axis=1)
-    D = scipy.sparse.spdiags(diags.flatten(), [0], m, n, format='csr')
+    D = sparse.spdiags(diags.flatten(), [0], m, n)
     return D - A
 
 laplacian = find_laplacian(G.nodes)
+laplacian = laplacian.asfptype()
+eigval, eigvec = sparse.linalg.eigsh(laplacian, 2, sigma=0, which='LM')
+print(eigval)
 print("ok")
+print("--- %s seconds ---" % (time.time() - start_time))
