@@ -1,4 +1,4 @@
-# Spectral-Graph-Partitons
+# Spectral-Graph-Partitions
 
 Final project for the CS-E4600 - Algorithmic Methods of Data Mining course at Aalto University, Finland.
 
