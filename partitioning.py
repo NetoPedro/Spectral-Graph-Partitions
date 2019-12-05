@@ -8,7 +8,7 @@ import networkx.linalg.algebraicconnectivity as  algebraicconnectivity
 start_time = time.time()
 
 
-FILENAME = "roadNet-CA.txt"
+FILENAME = "soc-Epinions1.txt"
 first_line = []
 with open("graphs_processed/" + FILENAME) as f:
     first_line = f.readline()
